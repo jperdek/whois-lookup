@@ -8,3 +8,11 @@ Client for whoi is lookup database - designed as whois web page for security sce
 4. Use command to load created data to postgres database:
 psql -h hostname -d databasename -U username -f file.sql
 
+## Install node_modules dependencies and run it
+cd project root directory
+npm istall
+npm start
+type http://localhost:8080/ to your browser
+
+## Test it!
+Type domain name which is in database. If you used provided data you can insert 01cukurovabims.com and type search.
