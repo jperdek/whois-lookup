@@ -5,6 +5,9 @@ var bodyParser = require('body-parser');
 
 var whoisAPI = require('./controllers/whois.controller');
 
+app.engine('html', require('ejs').renderFile);
+app.set('view engine', 'html');
+
 app.use(cors());
 app.use(bodyParser.json());
 //app.use(bodyParser.urlencoded({extended=false}));

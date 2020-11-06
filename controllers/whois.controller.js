@@ -11,10 +11,9 @@ var router = express.Router();
 router.get('/search', function (request, response) {
 	var searchedString = request.query.domain;
 	console.log(request.query.domain);
-	connection.many("SELECT * FROM whois WHERE domain_name LIKE '%"+ searchedString +"%' LIMIT 10")
+	connection.one("SELECT * FROM whois WHERE domain_name LIKE '%"+ searchedString +"%' LIMIT 1")
 		.then(records => {
-			console.log(records);
-			response.send(records);
+			response.render('detail.ejs', { 'data': records });
 		})
 		.catch(error => {
 			console.log("Error: "+error); // print the error;
