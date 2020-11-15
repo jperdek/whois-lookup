@@ -38,6 +38,9 @@
 					</ul>
 				</div>
 			</nav>
+			<div class="alert alert-success notFoundAlert" role="alert" id="notFoundAlert">
+				<p class="notFoundAlertText">Not found!</p>
+			</div>
 		</header>
 		<main>
 			<section class="search">
@@ -87,6 +90,16 @@
 		<script src="js/bootstrap.bundle.js"></script>
 		<script>
 			window.addEventListener("resize", function() { document.getElementsByTagName('canvas')[0].setAttribute('style',"width: 100%; height: 100vh"); });
+		</script>
+		
+		<script>
+			notFound = document.getElementById('notFoundAlert');
+			notFound.style.display= "none";
+			const urlParams = new URLSearchParams(window.location.search);
+			const myParam = urlParams.get('error');
+			if(myParam == "Not found!") {
+				notFound.style.display= "block";
+			}
 		</script>
 	</body>
 	

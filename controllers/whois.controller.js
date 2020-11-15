@@ -1,3 +1,5 @@
+var pgp = require('pg-promise');
+
 var databaseConnection = require('../config/db_connection.js');
 var express = require("express")
 
@@ -16,8 +18,13 @@ router.get('/search', function (request, response) {
 			response.render('detail.ejs', { 'data': records });
 		})
 		.catch(error => {
-			console.log("Error: "+error); // print the error;
-			response.send("Error: "+error);
+			
+			if( error instanceof pgp.errors.QueryResultError  ){
+				response.redirect('/?error=' + encodeURIComponent('Not found!'));
+			} else {
+				console.log("Error: "+error); // print the error;
+				response.send("Error: "+error);
+			}
 	});
 });
 

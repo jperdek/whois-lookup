@@ -123,3 +123,18 @@ header {
 	text-align: center;
 	padding-bottom: 1rem;
 }
+
+.notFoundAlert {
+	position: absolute !important;
+	justify-self: center;
+	background-color: pink !important;
+	top: 2rem;
+}
+
+.notFoundAlertText {
+	text-align: center;
+	font-size: 2rem;
+	font-weight: bold;
+	color: red;
+	font-family: monospace;
+}
