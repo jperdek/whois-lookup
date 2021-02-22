@@ -4,9 +4,17 @@ var databaseConnection = require('../config/db_connection.js');
 var express = require("express")
 
 var connection = databaseConnection.getConnection();
-
-connection.connect();
-
+let retries = 5;
+while(retries) {
+	try{
+		connection.connect();
+		break;
+	} catch(error){
+		console.log(error);
+		retries -= 1;
+		//await new Promise(response => setTimeout(response, 5000));
+	}
+}
 var router = express.Router();
 
 
