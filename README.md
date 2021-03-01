@@ -21,6 +21,17 @@ Type domain name which is in database. If you used provided data you can insert 
 
 # DOCKER 
 
+## ONLY FOR A TRY
+
+1. Download folder whois-docker from repository    
+2. Move inside it using command  
+	cd path/to/whois-docker 
+3. Call following commands  
+	docker-compose pull  
+	docker-compose up  
+4. If nodejs server fails, plese wait for insertion of data in database and text that is ready and call command docker-compose up again  
+
+
 ## INICIALIZATION
 
 1. Move to cloned repository

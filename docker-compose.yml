@@ -6,11 +6,14 @@ services:
       POSTGRES_PASSWORD: perdekj
       POSTGRES_USER: postgres
       POSTGRES_DB: postgres
+    volumes:
+      - ./prepare_data/new.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
       - "5432:5432"
   whoisapp:
     links:
       - db
+    image: jperdek/whoisapp
     build:
       context: .
       dockerfile: Dockerfile

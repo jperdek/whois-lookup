@@ -16,8 +16,14 @@ while(retries) {
 	}
 }
 var router = express.Router();
-
-
+/*
+const query =  new pgp.QueryFile('./prepare_data/db.sql', { minify: false });
+connection.any(query, []).then(records => {
+	console.log("Whois table is created.");
+}).catch(error => {	
+	console.log("Error:" + error); // print the error;
+});
+*/
 router.get('/search', function (request, response) {
 	var searchedString = request.query.domain;
 	console.log(request.query.domain);
