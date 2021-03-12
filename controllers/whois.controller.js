@@ -3,7 +3,10 @@ var pgp = require('pg-promise');
 var databaseConnection = require('../config/db_connection.js');
 var express = require("express")
 
+
 var connection = databaseConnection.getConnection();
+var bcryptTutorial = require("../public/createdJS/bcryptTutorial.js");
+
 let retries = 5;
 while(retries) {
 	try{
@@ -16,6 +19,14 @@ while(retries) {
 	}
 }
 var router = express.Router();
+
+router.use(
+  express.urlencoded({
+    extended: true
+  })
+);
+
+router.use(express.json());
 /*
 const query =  new pgp.QueryFile('./prepare_data/db.sql', { minify: false });
 connection.any(query, []).then(records => {
@@ -40,6 +51,26 @@ router.get('/search', function (request, response) {
 				response.send("Error: "+error);
 			}
 	});
+});
+
+router.get('/bcryptIntro', function (request, response) {
+	response.render('bcryptIntro.ejs', { salt: "15", inputText: "hello", outputText: "" });
+});
+
+router.post('/bcryptIntro', function (request, response) {
+	var salt = request.body.salt;
+	var inputText = request.body.inputText;
+	if(salt == ""){
+		response.render('bcryptIntro.ejs', { salt: salt, inputText: inputText, outputText: "Salt can't be empty string!" });
+		return;
+	}
+	if(Number(salt) > 25){
+		response.render('bcryptIntro.ejs', { salt: salt, inputText: inputText, outputText: "Greater values then 25 for salt are not allowed! Processing can last more then 1 hour!" });
+		return;
+	}
+
+	bcryptTutorial.convertBCrypt(Number(salt), inputText).then(
+		result => response.render('bcryptIntro.ejs', { salt: salt, inputText: inputText, outputText: result }));
 });
 
 var fs = require('fs');
@@ -69,4 +100,5 @@ router.get('/whois', (request, response) => {
 });
 */
 
-module.exports = router;
+	
+module.exports = router
