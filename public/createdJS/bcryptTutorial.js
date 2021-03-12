@@ -5,6 +5,13 @@ convertBCrypt= function(salt, inputText) {
 	return bcryptjs.hash(inputText, salt);
 }
 
+
+compareBCrypt= function(hashFromGuessedText, givenHash) {
+	return bcryptjs.compare(hashFromGuessedText, givenHash);
+}
+
+
 module.exports = {
-	convertBCrypt: convertBCrypt
+	convertBCrypt: convertBCrypt,
+	compareBCrypt: compareBCrypt
 }

@@ -54,23 +54,38 @@ router.get('/search', function (request, response) {
 });
 
 router.get('/bcryptIntro', function (request, response) {
-	response.render('bcryptIntro.ejs', { salt: "15", inputText: "hello", outputText: "" });
+	response.render('bcryptIntro.ejs', { salt: "15", inputText: "hello", outputText: "", guessedText: "", givenHash: "", resultComparation: "" });
 });
 
 router.post('/bcryptIntro', function (request, response) {
 	var salt = request.body.salt;
 	var inputText = request.body.inputText;
 	if(salt == ""){
-		response.render('bcryptIntro.ejs', { salt: salt, inputText: inputText, outputText: "Salt can't be empty string!" });
+		response.render('bcryptIntro.ejs', { salt: salt, inputText: inputText, outputText: "Salt can't be empty string!", guessedText: "", givenHash: "", resultComparation: "" });
 		return;
 	}
 	if(Number(salt) > 25){
-		response.render('bcryptIntro.ejs', { salt: salt, inputText: inputText, outputText: "Greater values then 25 for salt are not allowed! Processing can last more then 1 hour!" });
+		response.render('bcryptIntro.ejs', { salt: salt, inputText: inputText, outputText: "Greater values then 25 for salt are not allowed! Processing can last more then 1 hour!", guessedText: "", givenHash: "", resultComparation: "" });
 		return;
 	}
 
 	bcryptTutorial.convertBCrypt(Number(salt), inputText).then(
-		result => response.render('bcryptIntro.ejs', { salt: salt, inputText: inputText, outputText: result }));
+		result => response.render('bcryptIntro.ejs', { salt: salt, inputText: inputText, outputText: result, guessedText: "", givenHash: "", resultComparation: "" }));
+});
+
+router.post('/bcryptIntroValidator', function (request, response) {
+	var guessedText = request.body.guessedText;
+	var givenHash = request.body.givenHash;
+	
+	bcryptTutorial.compareBCrypt(guessedText, givenHash).then(
+		result => {
+			if(result){
+				response.render('bcryptIntro.ejs', { guessedText: guessedText, givenHash: givenHash, resultComparation: result, salt: "15", inputText: "hello", outputText: "" });
+			} else {
+				response.status(500);
+				response.render('bcryptIntro.ejs', { guessedText: guessedText, givenHash: givenHash, resultComparation: result, salt: "15", inputText: "hello", outputText: "" });
+			}
+			});
 });
 
 var fs = require('fs');

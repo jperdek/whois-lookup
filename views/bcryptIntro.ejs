@@ -71,7 +71,7 @@
 				</div>
 				<form id="bcryptForm" action="/bcryptIntro" method="POST">
 					<div class="textWhoisTutorial tutorialLayout">
-						<h2 class="chapterColumn headerBlock" >BCrypt converter</h2>
+						<h2 class="chapterColumn headerBlock" >BCrypt encryptor</h2>
 						<div class="saltBlock">
 							<h3 class="thirdHeading alignLeft">Salt:</h3>
 							<input id="salt" class="inputTutorial" type="number" value="<%=salt %>" placeholder="<%=salt %>" name="salt"/>
@@ -83,6 +83,26 @@
 						<div class="outputTextBlock">
 							<h3 class="thirdHeading alignLeft">Converted text:</h3>
 							<input class="inputTutorial" type="text" disabled value="<%=outputText %>"/>
+						</div>
+						<div class="confirmButtonBlock">
+							<input class="confirmButton"  type="submit" value="Apply BCrypt">
+						</div>
+					</div>
+				</form>
+				<form id="bcryptValidateForm" action="/bcryptIntroValidator" method="POST">
+					<div class="textWhoisTutorial tutorialLayout">
+						<h2 class="chapterColumn headerBlock" >BCrypt validator</h2>
+						<div class="saltBlock">
+							<h3 class="thirdHeading alignLeft">Guessed text:</h3>
+							<input class="inputTutorial" type="text" value="<%=guessedText %>" placeholder="<%=guessedText %>" name="guessedText"/>
+						</div>
+						<div class="inputTextBlock">
+							<h3 class="thirdHeading alignLeft">Given hash:</h3>
+							<input class="inputTutorial" type="text" value="<%=givenHash %>" placeholder="<%=givenHash %>" name="givenHash"/>
+						</div>
+						<div class="outputTextBlock">
+							<h3 class="thirdHeading alignLeft">Answer:</h3>
+							<input class="inputTutorial" type="text" disabled value="<%=resultComparation %>"/>
 						</div>
 						<div class="confirmButtonBlock">
 							<input class="confirmButton"  type="submit" value="Apply BCrypt">
