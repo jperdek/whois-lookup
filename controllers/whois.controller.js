@@ -1,23 +1,29 @@
 var pgp = require('pg-promise');
-
 var databaseConnection = require('../config/db_connection.js');
 var express = require("express")
 
 
 var connection = databaseConnection.getConnection();
 var bcryptTutorial = require("../public/createdJS/bcryptTutorial.js");
-
+async function waitHere() {
+  await sleep(5000);
+}
+		
 let retries = 5;
 while(retries) {
 	try{
 		connection.connect();
+		
 		break;
 	} catch(error){
+		waitHere();
+		console.log(retries);
 		console.log(error);
 		retries -= 1;
 		//await new Promise(response => setTimeout(response, 5000));
 	}
 }
+
 var router = express.Router();
 
 router.use(
