@@ -35,8 +35,12 @@ services:
       - db
     ports:
       - "5001:5001"
+    extra_hosts:
+        - "hostname1  localhost:127.0.0.1"
     networks:
       - buildernet
+    restart: on-failure
 networks:
   buildernet:
     driver: "bridge"
+    

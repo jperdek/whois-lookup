@@ -46,10 +46,20 @@ router.get('/search', function (request, response) {
 	console.log(request.query.domain);
 	connection.one("SELECT * FROM whois WHERE domain_name LIKE '%"+ searchedString +"%' LIMIT 1")
 		.then(records => {
-			response.render('detail.ejs', { 'data': records });
+			console.log(records);
+			connection.any("SELECT * FROM vulnerabilities "+
+				"LEFT JOIN vuln_danger ON vuln_danger.id = vulnerabilities.vuln_danger_id "+
+				"LEFT JOIN vuln_types ON vuln_types.id = vulnerabilities.vuln_type_id "+
+				"WHERE vulnerabilities.reference_record_id = "+ records.id.toString()).then(vulnerabilities => {
+					console.log(vulnerabilities);
+					response.render('detail.ejs', { 'data': records, 'vuln': vulnerabilities});
+			}).catch(error => {
+				console.log("Second");
+				console.log(error);
+			});
 		})
 		.catch(error => {
-			
+			console.log(error);
 			if( error instanceof pgp.errors.QueryResultError  ){
 				response.redirect('/?error=' + encodeURIComponent('Not found!'));
 			} else {
