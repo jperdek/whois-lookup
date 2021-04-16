@@ -73,6 +73,10 @@ router.get('/bcryptIntro', function (request, response) {
 	response.render('bcryptIntro.ejs', { salt: "15", inputText: "hello", outputText: "", guessedText: "", givenHash: "", resultComparation: "" });
 });
 
+router.get('/schema', function (request, response) {
+	response.render('whoisSchema.ejs');
+});
+
 router.post('/bcryptIntro', function (request, response) {
 	var salt = request.body.salt;
 	var inputText = request.body.inputText;
